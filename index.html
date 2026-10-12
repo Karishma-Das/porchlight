@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Porchlight: touch grass at your own pace</title>
+<meta name="description" content="An accessibility-first outdoor coach that runs an open-weight model on your own computer. This is the demo site.">
+<style>
+:root{--fs:19px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:var(--fs)/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#fff6e6;background:radial-gradient(1100px 560px at 78% -8%,#6b2f5c 0%,transparent 60%),linear-gradient(160deg,#2a1530,#3d2040 55%,#1d0f24);background-attachment:fixed}
+body.big{--fs:28px;background:#000;color:#ffe600}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.15;margin:0}
+a{color:inherit}
+.wrap{max-width:980px;margin:0 auto;padding:0 24px}
+.lamp{fill:#f6b84b}.lamp-glass{fill:#fff6e6}
+body.big .lamp{fill:#ffe600}body.big .lamp-glass{fill:#000}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;font:700 1.2em Georgia,serif;text-decoration:none}
+.nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:.8em}
+.nav a{text-decoration:none}.nav a:hover,.nav a:focus-visible{text-decoration:underline}
+.pill{display:inline-flex;align-items:center;gap:10px;background:#fff6e6;color:#2a1530;border:0;border-radius:999px;padding:.5em .55em .5em 1.1em;font:600 .8em system-ui,sans-serif;cursor:pointer;text-decoration:none}
+.pill .dot{width:1.8em;height:1.8em;border-radius:50%;background:#5a2a52;color:#fff6e6;display:grid;place-items:center}
+body.big .pill{background:#ffe600;color:#000}body.big .pill .dot{background:#000;color:#ffe600}
+:focus-visible{outline:4px solid #f6b84b;outline-offset:3px}
+body.big :focus-visible{outline-color:#fff}
+.hero{padding:40px 0 36px;display:grid;grid-template-columns:1.35fr .65fr;gap:32px;align-items:center}
+.eyebrow{letter-spacing:.14em;text-transform:uppercase;font-size:.6em;color:#f6b84b;margin:0 0 14px}
+body.big .eyebrow{color:#fff}
+.hero h1{font-size:2.7em}
+.lead{font-size:.9em;opacity:.92;max-width:34em;margin:18px 0 26px}
+.glow{aspect-ratio:1;width:100%;max-width:260px;justify-self:center;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,rgba(246,184,75,.6),rgba(246,184,75,.14) 55%,transparent 72%);animation:pulse 4s ease-in-out infinite}
+body.big .glow{background:none;border:6px solid #ffe600;animation:none}
+@keyframes pulse{50%{transform:scale(1.06);opacity:.86}}
+@media (prefers-reduced-motion:reduce){.glow{animation:none}html{scroll-behavior:auto}}
+.notice{border:2px solid #f6b84b;border-radius:18px;padding:16px 20px;font-size:.8em;margin:0 0 44px}
+body.big .notice{border-color:#fff}
+section{margin:0 0 52px}
+.sec-title{font-size:1.6em;margin:0 0 8px}
+.sub{font-size:.8em;opacity:.9;margin:0 0 20px;max-width:44em}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.box{background:rgba(255,246,230,.08);border:1px solid rgba(255,246,230,.22);border-radius:20px;padding:22px}
+body.big .box{background:none;border:3px solid #ffe600}
+.box h3{font-size:1.1em;margin-bottom:8px;color:#f6b84b}body.big .box h3{color:#fff}
+.box p{margin:0;font-size:.75em;opacity:.93}
+.card{background:#fff6e6;color:#2a1530;border-radius:28px;padding:30px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+body.big .card{background:#000;color:#ffe600;border:6px solid #ffe600;box-shadow:none}
+.label{letter-spacing:.14em;text-transform:uppercase;font-size:.6em;color:#8a4a7a;margin:0 0 8px}
+body.big .label{color:#fff}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}
+.chip{background:#2a1530;color:#fff6e6;border-radius:999px;padding:.25em .9em;font-size:.7em}
+body.big .chip{background:#ffe600;color:#000;font-weight:700}
+ol.steps{list-style:none;margin:0;padding:0}
+ol.steps li{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-top:1px solid rgba(42,21,48,.18)}
+body.big ol.steps li{border-top:3px solid #ffe600}
+.num{flex:0 0 auto;width:2em;height:2em;border-radius:50%;background:#f6b84b;color:#2a1530;display:grid;place-items:center;font-weight:700}
+body.big .num{background:#ffe600;color:#000}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+label.f{display:block;font-size:.7em;font-weight:700;margin-bottom:6px}
+select{width:100%;font:inherit;font-size:.8em;padding:.6em .8em;border-radius:12px;border:2px solid #2a1530;background:#fff;color:#2a1530}
+body.big select{background:#000;color:#ffe600;border-color:#ffe600}
+.rules{font-size:.7em;margin:6px 0 16px;padding:12px 16px;border-radius:12px;background:rgba(42,21,48,.08)}
+body.big .rules{background:none;border:2px solid #ffe600}
+.go{background:#2a1530;color:#fff6e6;border:0;border-radius:999px;padding:.6em 1.4em;font:700 .85em system-ui,sans-serif;cursor:pointer}
+body.big .go{background:#ffe600;color:#000}
+.verdict{margin-top:18px;border-radius:16px;padding:16px 20px;font-size:.8em;min-height:3em}
+.verdict.ok{background:#d9f2dd;color:#10361a}
+.verdict.no{background:#fde0dc;color:#5a1208}
+body.big .verdict.ok,body.big .verdict.no{background:#000;color:#ffe600;border:4px solid #ffe600}
+.verdict b{display:block;font-size:1.05em;margin-bottom:6px}
+.verdict ul{margin:6px 0 0 1.2em;padding:0}
+.pre{font-size:.7em;opacity:.8;margin-top:10px}
+pre{background:rgba(0,0,0,.35);border-radius:14px;padding:16px;font-size:.62em;overflow-x:auto;color:#fff6e6;margin:0 0 14px;line-height:1.5}
+body.big pre{background:#000;border:3px solid #ffe600;color:#ffe600}
+footer{padding:26px 0 48px;font-size:.6em;opacity:.85;border-top:1px solid rgba(255,246,230,.22)}
+@media (max-width:760px){.hero{grid-template-columns:1fr}.how,.controls{grid-template-columns:1fr}.glow{max-width:170px}.hero h1{font-size:2.1em}.card{padding:20px}}
+</style></head>
+<body>
+<div class="wrap">
+
+<header class="nav">
+ <a class="logo" href="#top"><svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true"><rect class="lamp" x="22" y="6" width="20" height="7" rx="3.5"/><path class="lamp" d="M20 15h24l4 29H16z"/><rect class="lamp-glass" x="26" y="21" width="12" height="17" rx="6"/><rect class="lamp" x="17" y="44" width="30" height="7" rx="3.5"/></svg>Porchlight</a>
+ <ul><li><a href="#how">How it works</a></li><li><a href="#try">Try the guard</a></li><li><a href="#run">Run it yourself</a></li></ul>
+ <button class="pill" id="bigBtn" aria-pressed="false">Large text <span class="dot" aria-hidden="true">Aa</span></button>
+</header>
+
+<section class="hero" id="top">
+ <div>
+  <p class="eyebrow">Touch grass at your own pace</p>
+  <h1>Step outside, your way.</h1>
+  <p class="lead">Most "go outside" apps assume you can hike. Porchlight is for everyone else: older adults, people with limited mobility or low vision, anyone with five minutes and a doorstep. An open AI model runs on your own computer, so your details stay with you.</p>
+  <a class="pill" href="#try">Try the safety guard <span class="dot" aria-hidden="true">&#8595;</span></a>
+ </div>
+ <div class="glow"><svg viewBox="0 0 64 64" width="130" height="130" aria-hidden="true"><rect class="lamp" x="22" y="6" width="20" height="7" rx="3.5"/><path class="lamp" d="M20 15h24l4 29H16z"/><rect class="lamp-glass" x="26" y="21" width="12" height="17" rx="6"/><rect class="lamp" x="17" y="44" width="30" height="7" rx="3.5"/></svg></div>
+</section>
+
+<div class="notice" role="note"><b>This is a demo site.</b> The real Porchlight runs on your own computer with a local open-weight model (Gemma through Ollama). It is not running live here. The guard below uses the same rules as the app, but the suggestions are hand-written samples, not a live AI.</div>
+
+<section id="how">
+ <h2 class="sec-title">How it works</h2>
+ <p class="sub">The model suggests. The code decides.</p>
+ <div class="how">
+  <div class="box"><h3>1. You set the limits</h3><p>How far you can go, stairs, heat, time and what you have at home. Asked once, saved only on your computer.</p></div>
+  <div class="box"><h3>2. The model suggests</h3><p>A local open-weight model writes one tiny mission for today: a window, balcony, doorstep, yard or short walk.</p></div>
+  <div class="box"><h3>3. The code decides</h3><p>Every idea is checked against your limits. If it doesn't fit, it is rejected and the model tries again, or a safe backup mission is used.</p></div>
+ </div>
+</section>
+
+<section>
+ <h2 class="sec-title">A mission card</h2>
+ <p class="sub">One of the built-in backup missions, shown the way the app displays it.</p>
+ <div class="card">
+  <p class="label">Example mission</p>
+  <h3 style="font-size:1.7em">Doorstep deep breath</h3>
+  <div class="chips"><span class="chip">doorstep</span><span class="chip">about 5 min</span><span class="chip">focus: smell</span><span class="chip">shade</span></div>
+  <ol class="steps">
+   <li><span class="num">1</span><span>Open the door and sit or stand on the threshold.</span></li>
+   <li><span class="num">2</span><span>Breathe slowly and notice any smell in the air.</span></li>
+   <li><span class="num">3</span><span>Stay until you can describe the air in three words.</span></li>
+  </ol>
+ </div>
+</section>
+
+<section id="try">
+ <h2 class="sec-title">Try the guard</h2>
+ <p class="sub">Pick a person and a suggestion, then see whether the guard accepts it. The same suggestion can be fine for one person and rejected for another.</p>
+ <div class="card">
+  <div class="controls">
+   <div><label class="f" for="person">Person</label><select id="person"></select></div>
+   <div><label class="f" for="sugg">Sample model suggestion</label><select id="sugg"></select></div>
+  </div>
+  <div class="rules" id="rules"></div>
+  <button class="go" id="check">Check with the guard</button>
+  <div class="verdict" id="verdict" aria-live="polite">Choose a person and a suggestion, then press the button.</div>
+  <p class="pre">The checks are the same rules the app applies: allowed places, minutes, distance, stairs, direct sun on a hot day, and a blocklist of strenuous words. In the real app a rejected answer is sent back to the model for another try.</p>
+ </div>
+</section>
+
+<section id="run">
+ <h2 class="sec-title">Run the real thing</h2>
+ <p class="sub">You need Python 3 and <a href="https://ollama.com">Ollama</a>. No account, no API key, no extra packages.</p>
+ <pre>ollama pull gemma3:4b
+git clone https://github.com/Karishma-Das/porchlight
+cd porchlight
+python porchlight.py</pre>
+ <p class="sub">Source code: <a href="https://github.com/Karishma-Das/porchlight">github.com/Karishma-Das/porchlight</a></p>
+ <div class="box"><h3>Why open and local</h3><p>Mobility and health details never leave the computer. It works offline once the model is downloaded, the model can be swapped with one setting, and it costs nothing to run.</p></div>
+</section>
+
+<footer>
+ Porchlight is a Hacktoberfest 2026 Touch Grass project. Not medical advice: it does not assess anyone's health. Stop and rest if you feel unwell.
+</footer>
+</div>
+
+<script>
+var RISKY = /\b(hike|climb|jog|sprint|run|cycle|swim|jump|barefoot)\b/i;
+var PEOPLE = {
+ home:   {label:"Can't leave home (window or balcony only)", max:0,   stairs:false, heat:true,  places:["window","balcony"],                 minutes:5,  energy:"low", hot:true},
+ walker: {label:"Short walker (up to 150 m, no stairs)",      max:150, stairs:false, heat:false, places:["window","doorstep","short_walk"],  minutes:15, energy:"ok",  hot:false},
+ heat:   {label:"Heat-sensitive, on a hot day",               max:100, stairs:true,  heat:true,  places:["doorstep","yard","short_walk"],    minutes:10, energy:"ok",  hot:true}
+};
+var SUGGESTIONS = {
+ a:{label:"Window sound-spotting (5 min)", m:{title:"Window sound-spotting",place:"window",minutes:5,distance_m:0,needs_stairs:false,exposure:"indoors",steps:["Stand beside the window.","Close your eyes and count three sounds.","Open your eyes and find something moving."]}},
+ b:{label:"Doorstep deep breath (5 min)", m:{title:"Doorstep deep breath",place:"doorstep",minutes:5,distance_m:0,needs_stairs:false,exposure:"shade",steps:["Sit on the threshold.","Breathe slowly.","Describe the air in three words."]}},
+ c:{label:"Loop to the park (20 min, 400 m, stairs)", m:{title:"Loop to the park",place:"short_walk",minutes:20,distance_m:400,needs_stairs:true,exposure:"sun",steps:["Take the stairs down.","Jog to the park.","Walk back."]}},
+ d:{label:"Sunny yard sit (10 min)", m:{title:"Sunny yard sit",place:"yard",minutes:10,distance_m:0,needs_stairs:false,exposure:"sun",steps:["Step into the yard.","Sit in the sunniest spot.","Notice the warmth."]}},
+ e:{label:"Barefoot doorstep grounding (10 min)", m:{title:"Doorstep grounding",place:"doorstep",minutes:10,distance_m:0,needs_stairs:false,exposure:"shade",steps:["Stand barefoot on your doorstep.","Notice the temperature of the surface.","Take a few slow breaths."]}},
+ f:{label:"Slow loop to the gate (8 min, 50 m)", m:{title:"Slow loop to the gate",place:"short_walk",minutes:8,distance_m:50,needs_stairs:false,exposure:"shade",steps:["Walk slowly to the gate.","Look for something green.","Walk back and rest at the door."]}}
+};
+
+function validate(m, p) {
+  var errs = [];
+  if (p.places.indexOf(m.place) === -1) errs.push("place must be one of: " + p.places.join(", "));
+  if (m.minutes < 1 || m.minutes > p.minutes) errs.push("minutes must be between 1 and " + p.minutes);
+  if (m.distance_m > p.max) errs.push("distance must be at most " + p.max + " m");
+  if (m.needs_stairs && !p.stairs) errs.push("stairs are not allowed for this person");
+  if (p.hot && p.heat && m.exposure === "sun") errs.push("no direct sun when it is hot");
+  var text = [m.title].concat(m.steps).join(" ");
+  if ((p.max <= 200 || p.energy === "low") && RISKY.test(text)) errs.push("no strenuous or risky words (hike, run, climb, barefoot...)");
+  return errs;
+}
+
+function el(id){return document.getElementById(id);}
+function fill(sel, obj){ for (var k in obj){ var o=document.createElement("option"); o.value=k; o.textContent=obj[k].label; sel.appendChild(o);} }
+fill(el("person"), PEOPLE); fill(el("sugg"), SUGGESTIONS);
+
+function showRules(){
+  var p = PEOPLE[el("person").value];
+  el("rules").textContent = "Limits: " + p.minutes + " min, farthest " + p.max + " m, stairs " + (p.stairs?"ok":"not ok") +
+    ", heat-sensitive " + (p.heat?"yes":"no") + ", hot outside " + (p.hot?"yes":"no") + ", energy " + p.energy +
+    ", places: " + p.places.join(", ") + ".";
+  el("verdict").className = "verdict"; el("verdict").textContent = "Press the button to check this suggestion.";
+}
+el("person").addEventListener("change", showRules);
+el("sugg").addEventListener("change", function(){ el("verdict").className="verdict"; el("verdict").textContent="Press the button to check this suggestion."; });
+
+el("check").addEventListener("click", function(){
+  var p = PEOPLE[el("person").value], s = SUGGESTIONS[el("sugg").value];
+  var errs = validate(s.m, p), v = el("verdict");
+  if (errs.length === 0) {
+    v.className = "verdict ok";
+    v.innerHTML = "<b>Accepted</b>This suggestion fits this person's limits.";
+  } else {
+    v.className = "verdict no";
+    v.innerHTML = "<b>Rejected by the guard</b>Reasons:<ul>" + errs.map(function(e){return "<li>"+e+"</li>";}).join("") + "</ul>In the real app, the model would be asked to try again.";
+  }
+});
+showRules();
+
+var big = el("bigBtn");
+big.addEventListener("click", function(){
+  var on = document.body.classList.toggle("big");
+  big.setAttribute("aria-pressed", on ? "true" : "false");
+});
+</script>
+</body></html>
